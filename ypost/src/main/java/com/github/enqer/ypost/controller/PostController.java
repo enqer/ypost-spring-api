@@ -40,12 +40,23 @@ public class PostController {
     public ResponseEntity<Post> createPost(@RequestBody Post post){
         service.createPost(post);
         Post newPost = service.createPost(new Post(
-                null,
+            null,
                 post.getAuthorId(),
                 post.getContent(),
                 LocalDateTime.now())
         );
         return ResponseEntity.status(HttpStatus.CREATED).body(post);
+    }
+
+    @PutMapping("/posts/{id}")
+    public ResponseEntity<Object> updatePost(@RequestBody Post post, @PathVariable Long id){
+        service.updatePost(new Post(
+                id,
+                post.getAuthorId(),
+                post.getContent(),
+                post.getPublishedAt()
+        ));
+        return ResponseEntity.noContent().build();
     }
 
 

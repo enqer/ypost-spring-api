@@ -2,21 +2,22 @@ package com.github.enqer.ypost.controller;
 
 import com.github.enqer.ypost.model.Post;
 import com.github.enqer.ypost.repository.PostRepository;
-import org.springframework.http.ResponseEntity;
+import com.github.enqer.ypost.service.PostService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RequestMapping("/")
+
 @RestController
 public class PostController {
 
-    private final PostRepository repository;
+    private final PostService service;
 
-    public PostController(PostRepository repository) {
-        this.repository = repository;
+    public PostController(PostService service) {
+        this.service = service;
     }
 
 
@@ -27,8 +28,13 @@ public class PostController {
 
 
     @GetMapping("/posts")
-    public List<Post> getPost(){
-        return repository.findAll();
+    public List<Post> getPosts(){
+        return service.getPosts();
+    }
+
+    @GetMapping("/posts/{id}")
+    public Post getPost(@PathVariable Long id){
+        return service.getPost(id);
     }
 
 }

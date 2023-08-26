@@ -1,13 +1,12 @@
 package com.github.enqer.ypost.controller;
 
 import com.github.enqer.ypost.model.Post;
-import com.github.enqer.ypost.repository.PostRepository;
 import com.github.enqer.ypost.service.PostService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -36,5 +35,18 @@ public class PostController {
     public Post getPost(@PathVariable Long id){
         return service.getPost(id);
     }
+
+    @PostMapping("/posts")
+    public ResponseEntity<Post> createPost(@RequestBody Post post){
+        service.createPost(post);
+        Post newPost = service.createPost(new Post(
+                null,
+                post.getAuthorId(),
+                post.getContent(),
+                LocalDateTime.now())
+        );
+        return ResponseEntity.status(HttpStatus.CREATED).body(post);
+    }
+
 
 }

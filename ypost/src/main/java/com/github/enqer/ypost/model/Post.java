@@ -20,7 +20,6 @@ public class Post {
     @SequenceGenerator(
             name = "post",
             sequenceName = "post",
-            initialValue = 1,
             allocationSize = 1
     )
     @GeneratedValue(

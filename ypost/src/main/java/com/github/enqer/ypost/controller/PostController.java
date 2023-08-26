@@ -38,14 +38,13 @@ public class PostController {
 
     @PostMapping("/posts")
     public ResponseEntity<Post> createPost(@RequestBody Post post){
-        service.createPost(post);
         Post newPost = service.createPost(new Post(
             null,
                 post.getAuthorId(),
                 post.getContent(),
                 LocalDateTime.now())
         );
-        return ResponseEntity.status(HttpStatus.CREATED).body(post);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newPost);
     }
 
     @PutMapping("/posts/{id}")

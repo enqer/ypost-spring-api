@@ -8,4 +8,5 @@ public class Comment {
     private Long AuthorId;
     private String content;
     private LocalDateTime publishedAt;
+    private Long likes;
 }

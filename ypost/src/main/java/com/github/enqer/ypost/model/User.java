@@ -1,16 +1,20 @@
 package com.github.enqer.ypost.model;
 
-import java.time.LocalDate;
-import java.util.List;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
+import java.time.LocalDate;
+
+@Entity
 public class User {
 
-    private Long id;
+    @Id
+    private Long userId;
     private String name;
     private String nickname;
     private String profilePicture;
     private String email;
     private LocalDate dateCreated;
     private String password;
-    private List<Post> posts; // ?????
+
 }

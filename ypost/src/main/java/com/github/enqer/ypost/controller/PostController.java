@@ -1,6 +1,7 @@
 package com.github.enqer.ypost.controller;
 
 import com.github.enqer.ypost.model.Post;
+import com.github.enqer.ypost.model.User;
 import com.github.enqer.ypost.service.PostService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,12 +39,14 @@ public class PostController {
 
     @PostMapping("/posts")
     public ResponseEntity<Post> createPost(@RequestBody Post post){
+
         Post newPost = service.createPost(new Post(
-            null,
-                post.getAuthorId(),
+                null,
                 post.getContent(),
-                LocalDateTime.now())
-        );
+                post.getPublishedAt(),
+                post.getAuthor(),
+                post.getComments()
+        ));
         return ResponseEntity.status(HttpStatus.CREATED).body(newPost);
     }
 
@@ -51,9 +54,10 @@ public class PostController {
     public ResponseEntity<Object> updatePost(@RequestBody Post post, @PathVariable Long id){
         service.updatePost(new Post(
                 id,
-                post.getAuthorId(),
                 post.getContent(),
-                post.getPublishedAt()
+                post.getPublishedAt(),
+                post.getAuthor(),
+                post.getComments()
         ));
         return ResponseEntity.noContent().build();
     }

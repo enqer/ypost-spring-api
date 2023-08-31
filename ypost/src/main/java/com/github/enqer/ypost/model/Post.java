@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "posts")
@@ -24,7 +26,8 @@ public class Post {
     )
     private Long postId;
     @Column(
-            columnDefinition = "TEXT"
+            columnDefinition = "TEXT",
+            nullable = false
     )
     private String content;
     private LocalDateTime publishedAt;
@@ -37,4 +40,10 @@ public class Post {
             referencedColumnName = "userId"
     )
     private User author;
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            mappedBy = "post"
+    )
+    private List<Comment> comments = new ArrayList<>();
 }

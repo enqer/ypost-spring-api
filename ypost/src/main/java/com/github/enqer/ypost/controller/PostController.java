@@ -44,7 +44,7 @@ public class PostController {
                 null,
                 post.getContent(),
                 post.getPublishedAt(),
-                post.getAuthor(),
+                post.getUser(),
                 post.getComments()
         ));
         return ResponseEntity.status(HttpStatus.CREATED).body(newPost);
@@ -56,7 +56,7 @@ public class PostController {
                 id,
                 post.getContent(),
                 post.getPublishedAt(),
-                post.getAuthor(),
+                post.getUser(),
                 post.getComments()
         ));
         return ResponseEntity.noContent().build();

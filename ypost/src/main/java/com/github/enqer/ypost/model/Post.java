@@ -39,7 +39,7 @@ public class Post {
             name = "user_id",
             referencedColumnName = "userId"
     )
-    private User author;
+    private User user;
 
     @OneToMany(
             cascade = CascadeType.ALL,

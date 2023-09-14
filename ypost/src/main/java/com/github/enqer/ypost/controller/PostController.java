@@ -1,8 +1,11 @@
 package com.github.enqer.ypost.controller;
 
+import com.github.enqer.ypost.model.Comment;
 import com.github.enqer.ypost.model.Post;
 import com.github.enqer.ypost.model.User;
+import com.github.enqer.ypost.service.CommentService;
 import com.github.enqer.ypost.service.PostService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,13 +15,13 @@ import java.util.List;
 
 
 @RestController
+@AllArgsConstructor
 public class PostController {
 
     private final PostService service;
+    private final CommentService commentService;
 
-    public PostController(PostService service) {
-        this.service = service;
-    }
+
 
 
     @GetMapping
@@ -30,6 +33,11 @@ public class PostController {
     @GetMapping("/posts")
     public List<Post> getPosts(){
         return service.getPosts();
+    }
+
+    @GetMapping("/posts/{id}/comments")
+    public List<Comment> getCommentsByPostId(@PathVariable Long id){
+        return commentService.getCommentsByPostId(id);
     }
 
     @GetMapping("/posts/{id}")

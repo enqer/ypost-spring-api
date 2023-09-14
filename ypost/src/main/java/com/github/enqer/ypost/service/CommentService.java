@@ -20,4 +20,8 @@ public class CommentService {
     public Comment getCommentById(Long id) {
         return repository.findById(id).orElseThrow();
     }
+
+    public Comment createComment(Comment comment) {
+        return repository.save(comment);
+    }
 }

@@ -31,6 +31,16 @@ public class CommentController {
         ));
         return ResponseEntity.status(HttpStatus.CREATED).body(c);
     }
-
+    @PutMapping("/comments/{id}")
+    public ResponseEntity<Comment> updateComment(@RequestBody Comment comment, @PathVariable Long id){
+        commentService.updateComment(new Comment(
+                id,
+                comment.getContent(),
+                comment.getPublishedAt(),
+                comment.getPost(),
+                comment.getUser()
+        ));
+        return ResponseEntity.noContent().build();
+    }
 
 }

@@ -24,4 +24,8 @@ public class CommentService {
     public Comment createComment(Comment comment) {
         return repository.save(comment);
     }
+
+    public void updateComment(Comment comment) {
+        repository.save(comment);
+    }
 }

@@ -13,5 +13,7 @@ public class CommentService {
 
     public final CommentRepository repository;
 
-    
+    public List<Comment> getCommentsByPostId(Long id) {
+        return repository.findAllByPostId(id);
+    }
 }

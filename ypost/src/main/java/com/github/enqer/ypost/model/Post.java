@@ -1,36 +1,49 @@
 package com.github.enqer.ypost.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "posts")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Post {
 
     @Id
     @SequenceGenerator(
-            name = "post",
-            sequenceName = "post",
+            name = "post_sequence",
+            sequenceName = "post_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "post"
+            generator = "post_sequence"
     )
-    private Long id;
-    private Long authorId;
+    private Long postId;
     @Column(
-            columnDefinition = "TEXT"
+            columnDefinition = "TEXT",
+            nullable = false
     )
     private String content;
     private LocalDateTime publishedAt;
+
+    @ManyToOne(
+            cascade = CascadeType.ALL
+    )
+    @JoinColumn(
+            name = "user_id",
+            referencedColumnName = "userId"
+    )
+    private User user;
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            mappedBy = "post"
+    )
+    private List<Comment> comments = new ArrayList<>();
 }
